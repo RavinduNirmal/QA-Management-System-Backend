@@ -1,0 +1,9 @@
+{
+  "device-mapping-attributes": ["serialNo"],
+  "rest-service-port": 12000,
+  "ws-service-port": 12001,
+  "hb-interval": 30,
+  "client-response-wait-timemout": 60,
+  "map-branch-code": true,
+  "tls-enabled": true
+}

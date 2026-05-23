@@ -1,0 +1,47 @@
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:53:51.384Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:53:51.386Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:53:51.387Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:53:51.387Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:53:51.387Z"}
+{"label":"--------WebSocket-Service------","level":"error","timestamp":"2023-05-11T01:53:51.393Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:53:54.196Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:53:54.199Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:53:54.199Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:53:54.199Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:53:54.199Z"}
+{"label":"--------WebSocket-Service------","level":"error","timestamp":"2023-05-11T01:53:54.204Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:53:57.488Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:53:57.490Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:53:57.490Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:53:57.490Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:53:57.490Z"}
+{"label":"--------WebSocket-Service------","level":"error","timestamp":"2023-05-11T01:53:57.496Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:54:00.575Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:54:00.578Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:54:00.579Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:54:00.579Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:54:00.579Z"}
+{"label":"--------WebSocket-Service------","level":"error","timestamp":"2023-05-11T01:54:00.586Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:54:03.628Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:54:03.630Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:54:03.630Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:54:03.630Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:54:03.630Z"}
+{"label":"--------WebSocket-Service------","level":"error","timestamp":"2023-05-11T01:54:03.634Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:54:07.554Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:54:07.558Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:54:07.558Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:54:07.559Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:54:07.559Z"}
+{"label":"--------WebSocket-Service------","level":"error","timestamp":"2023-05-11T01:54:07.565Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations=======================================","timestamp":"2023-05-11T01:54:13.514Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"ping-pong heart beat interval : 30000 ms","timestamp":"2023-05-11T01:54:13.516Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"client response wait timeout : 60 seconds","timestamp":"2023-05-11T01:54:13.516Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"device mapping attributes : serialNo","timestamp":"2023-05-11T01:54:13.517Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"================loading configurations (end)=================================\n\n","timestamp":"2023-05-11T01:54:13.517Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"2 terminal records were loaded ","timestamp":"2023-05-11T01:54:13.520Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"loaded production environment","timestamp":"2023-05-11T01:54:13.526Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"TLS disabled","timestamp":"2023-05-11T01:54:13.527Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"rest service is started at port 12000","timestamp":"2023-05-11T01:54:13.581Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"2 terminal records were loaded ","timestamp":"2023-05-11T01:54:13.591Z"}
+{"label":"--------WebSocket-Service------","level":"info","message":"web socket service started at port 12001","timestamp":"2023-05-11T01:54:13.600Z"}
