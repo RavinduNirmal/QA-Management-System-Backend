@@ -38,6 +38,9 @@ export async function createRoutes(container: IContainer): Promise<Router> {
   // ============ Project Routes ============
  router.post('/api/v1/ecrTrans/projects', (req, res) => projectController.createProject(req, res));
  router.get('/api/v1/ecrTrans/projects', (req, res) => projectController.getProjects(req, res));
+ router.post('/api/v1/ecrTrans/projects/assign-user', (req, res) => projectController.assignUserToProject(req, res));
+router.get('/api/v1/ecrTrans/projects/:projectId/users', (req, res) => projectController.getProjectUsers(req, res));
+router.get('/api/v1/ecrTrans/users/:userId/projects', (req, res) => projectController.getUserProjects(req, res));
 
   return router;
 }

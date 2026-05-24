@@ -121,11 +121,16 @@ import { RoleRepository } from "../infras/database/repositories/RoleRepository";
 import { AuditRepository } from "../infras/database/repositories/AuditRepository";
 import { PermissionRepository } from "../infras/database/repositories/PermissionRepository";
 import { ResourceRepository } from "../infras/database/repositories/ResourceRepository";
-import { ProjectRepository } from "../infras/database/repositories//ProjectRepository";
+import { ProjectRepository } from "../infras/database/repositories/ProjectRepository";
+import { ProjectUserRepository } from "../infras/database/repositories/ProjectUserRepository";
 
 // Use Cases - Project
+import { AssignUserToProjectUseCase } from "../app/usecases/project/AssignUserToProjectUseCase";
+import { GetProjectUsersUseCase } from "../app/usecases/project/GetProjectUsersUseCase";
+import { GetUserProjectsUseCase } from "../app/usecases/project/GetUserProjectsUseCase";
 import { CreateProjectUseCase } from "../app/usecases/project/CreateProjectUseCase";
 import { GetProjectsUseCase } from "../app/usecases/project/GetProjectsUseCase";
+
 
 // Use Cases - User
 import { CreateUserUseCase } from "../app/usecases/user/CreateUserUseCase";
@@ -179,6 +184,7 @@ export async function createContainer(): Promise<IContainer> {
   const permissionRepository = new PermissionRepository();
   const resourceRepository = new ResourceRepository();
   const projectRepository = new ProjectRepository();  // Add this
+  const projectUserRepository = new ProjectUserRepository();
 
   // Initialize Gateways
   const authGateway = new JwtAuthGateway();
@@ -186,6 +192,27 @@ export async function createContainer(): Promise<IContainer> {
   // Initialize Use Cases - Project (Add these)
   const createProjectUseCase = new CreateProjectUseCase(projectRepository, auditRepository);
   const getProjectsUseCase = new GetProjectsUseCase(projectRepository);
+
+  const assignUserToProjectUseCase = new AssignUserToProjectUseCase(
+  projectUserRepository,
+  projectRepository,
+  userRepository,
+  auditRepository
+);
+// For GetProjectUsersUseCase - add userRepository as third parameter
+const getProjectUsersUseCase = new GetProjectUsersUseCase(
+  projectUserRepository,
+  projectRepository,
+  userRepository  // Add this
+);
+
+// For GetUserProjectsUseCase - add projectRepository and userRepository
+const getUserProjectsUseCase = new GetUserProjectsUseCase(
+  projectUserRepository,
+  projectRepository,  // Add this
+  userRepository
+);
+
 
   // Initialize Use Cases - User
   const createUserUseCase = new CreateUserUseCase(userRepository, roleRepository, auditRepository);
@@ -225,7 +252,13 @@ export async function createContainer(): Promise<IContainer> {
   const roleController = new RoleController(createRoleUseCase, getRolesUseCase, updateRoleUseCase);
   const auditController = new AuditController(getAuditsUseCase);
   const permissionController = new PermissionController(createResourceUseCase, createPermissionUseCase);
-  const projectController = new ProjectController(createProjectUseCase, getProjectsUseCase);  // Add this
+const projectController = new ProjectController(
+  createProjectUseCase,
+  getProjectsUseCase,
+  assignUserToProjectUseCase,
+  getProjectUsersUseCase,
+  getUserProjectsUseCase
+);// Add this
 
   return {
     userController,
