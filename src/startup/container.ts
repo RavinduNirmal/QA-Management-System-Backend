@@ -123,6 +123,11 @@ import { PermissionRepository } from "../infras/database/repositories/Permission
 import { ResourceRepository } from "../infras/database/repositories/ResourceRepository";
 import { ProjectRepository } from "../infras/database/repositories/ProjectRepository";
 import { ProjectUserRepository } from "../infras/database/repositories/ProjectUserRepository";
+import { TestSuiteRepository } from "../infras/database/repositories/TestSuiteRepository";
+
+// Use Cases - TestSuite
+import { CreateTestSuiteUseCase } from "../app/usecases/testSuite/CreateTestSuiteUseCase";
+import { GetTestSuitesUseCase } from "../app/usecases/testSuite/GetTestSuitesUseCase";
 
 // Use Cases - Project
 import { AssignUserToProjectUseCase } from "../app/usecases/project/AssignUserToProjectUseCase";
@@ -160,6 +165,8 @@ import { RoleController } from "../infras/http/controllers/RoleController";
 import { AuditController } from "../infras/http/controllers/AuditController";
 import { PermissionController } from "../infras/http/controllers/PermissionController";
 import { ProjectController } from "../infras/http/controllers/ProjectController";
+import { TestSuiteController } from "../infras/http/controllers/TestSuiteController";
+
 
 export interface IContainer {
   userController: UserController;
@@ -168,6 +175,7 @@ export interface IContainer {
   auditController: AuditController;
   permissionController: PermissionController;
   projectController: ProjectController;  // Add this
+  testSuiteController: TestSuiteController;
 }
 
 export async function createContainer(): Promise<IContainer> {
@@ -185,6 +193,7 @@ export async function createContainer(): Promise<IContainer> {
   const resourceRepository = new ResourceRepository();
   const projectRepository = new ProjectRepository();  // Add this
   const projectUserRepository = new ProjectUserRepository();
+  const testSuiteRepository = new TestSuiteRepository();
 
   // Initialize Gateways
   const authGateway = new JwtAuthGateway();
@@ -214,6 +223,17 @@ const getUserProjectsUseCase = new GetUserProjectsUseCase(
 );
 
 
+// Add after other use cases
+const createTestSuiteUseCase = new CreateTestSuiteUseCase(
+  testSuiteRepository,
+  projectRepository,
+  auditRepository
+);
+const getTestSuitesUseCase = new GetTestSuitesUseCase(
+  testSuiteRepository,
+  projectRepository,
+  userRepository
+);
   // Initialize Use Cases - User
   const createUserUseCase = new CreateUserUseCase(userRepository, roleRepository, auditRepository);
   const updateUserUseCase = new UpdateUserUseCase(userRepository, roleRepository, auditRepository);
@@ -259,6 +279,10 @@ const projectController = new ProjectController(
   getProjectUsersUseCase,
   getUserProjectsUseCase
 );// Add this
+const testSuiteController = new TestSuiteController(
+  createTestSuiteUseCase,
+  getTestSuitesUseCase
+);
 
   return {
     userController,
@@ -266,7 +290,8 @@ const projectController = new ProjectController(
     roleController,
     auditController,
     permissionController,
-    projectController  // Add this
+    projectController,  // Add this
+    testSuiteController  // Add this
   };
 }
 
