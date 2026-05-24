@@ -5,7 +5,7 @@ import { IContainer } from './container';
 
 export async function createRoutes(container: IContainer): Promise<Router> {
   const router = express.Router();
-  const { userController, authController, roleController, auditController, permissionController ,  projectController, testSuiteController  } = container;
+  const { userController, authController, roleController, auditController, permissionController ,  projectController, testSuiteController ,testCaseController } = container;
 
   // Global Middleware
   router.use(express.json());
@@ -45,6 +45,11 @@ router.get('/api/v1/ecrTrans/users/:userId/projects', (req, res) => projectContr
 // ============ Test Suite Routes ============
 router.post('/api/v1/ecrTrans/test-suites', (req, res) => testSuiteController.createTestSuite(req, res));
 router.get('/api/v1/ecrTrans/test-suites', (req, res) => testSuiteController.getTestSuites(req, res));
+
+// ============ Test Case Routes ============
+router.post('/api/v1/ecrTrans/test-cases', (req, res) => testCaseController.createTestCase(req, res));
+router.get('/api/v1/ecrTrans/test-cases', (req, res) => testCaseController.getTestCases(req, res));
+router.put('/api/v1/ecrTrans/test-cases/:id', (req, res) => testCaseController.updateTestCase(req, res));
 
   return router;
 }

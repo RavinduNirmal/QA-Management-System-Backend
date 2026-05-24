@@ -124,6 +124,12 @@ import { ResourceRepository } from "../infras/database/repositories/ResourceRepo
 import { ProjectRepository } from "../infras/database/repositories/ProjectRepository";
 import { ProjectUserRepository } from "../infras/database/repositories/ProjectUserRepository";
 import { TestSuiteRepository } from "../infras/database/repositories/TestSuiteRepository";
+import { TestCaseRepository } from "../infras/database/repositories/TestCaseRepository";
+
+// Use Cases - TestCase
+import { CreateTestCaseUseCase } from "../app/usecases/testCase/CreateTestCaseUseCase";
+import { GetTestCasesUseCase } from "../app/usecases/testCase/GetTestCasesUseCase";
+import { UpdateTestCaseUseCase } from "../app/usecases/testCase/UpdateTestCaseUseCase";
 
 // Use Cases - TestSuite
 import { CreateTestSuiteUseCase } from "../app/usecases/testSuite/CreateTestSuiteUseCase";
@@ -166,6 +172,7 @@ import { AuditController } from "../infras/http/controllers/AuditController";
 import { PermissionController } from "../infras/http/controllers/PermissionController";
 import { ProjectController } from "../infras/http/controllers/ProjectController";
 import { TestSuiteController } from "../infras/http/controllers/TestSuiteController";
+import { TestCaseController } from "../infras/http/controllers/TestCaseController";
 
 
 export interface IContainer {
@@ -176,6 +183,7 @@ export interface IContainer {
   permissionController: PermissionController;
   projectController: ProjectController;  // Add this
   testSuiteController: TestSuiteController;
+  testCaseController: TestCaseController;
 }
 
 export async function createContainer(): Promise<IContainer> {
@@ -194,6 +202,8 @@ export async function createContainer(): Promise<IContainer> {
   const projectRepository = new ProjectRepository();  // Add this
   const projectUserRepository = new ProjectUserRepository();
   const testSuiteRepository = new TestSuiteRepository();
+  // Add after other repository initializations
+const testCaseRepository = new TestCaseRepository();
 
   // Initialize Gateways
   const authGateway = new JwtAuthGateway();
@@ -234,6 +244,26 @@ const getTestSuitesUseCase = new GetTestSuitesUseCase(
   projectRepository,
   userRepository
 );
+
+const createTestCaseUseCase = new CreateTestCaseUseCase(
+  testCaseRepository,
+  projectRepository,
+  testSuiteRepository,
+  auditRepository
+);
+const getTestCasesUseCase = new GetTestCasesUseCase(
+  testCaseRepository,
+  projectRepository,
+  testSuiteRepository,
+  userRepository
+);
+const updateTestCaseUseCase = new UpdateTestCaseUseCase(
+  testCaseRepository,
+  testSuiteRepository,
+  auditRepository
+);
+
+
   // Initialize Use Cases - User
   const createUserUseCase = new CreateUserUseCase(userRepository, roleRepository, auditRepository);
   const updateUserUseCase = new UpdateUserUseCase(userRepository, roleRepository, auditRepository);
@@ -284,6 +314,13 @@ const testSuiteController = new TestSuiteController(
   getTestSuitesUseCase
 );
 
+const testCaseController = new TestCaseController(
+  createTestCaseUseCase,
+  getTestCasesUseCase,
+  updateTestCaseUseCase
+);
+
+
   return {
     userController,
     authController,
@@ -291,7 +328,8 @@ const testSuiteController = new TestSuiteController(
     auditController,
     permissionController,
     projectController,  // Add this
-    testSuiteController  // Add this
+    testSuiteController,  // Add this
+    testCaseController,
   };
 }
 
