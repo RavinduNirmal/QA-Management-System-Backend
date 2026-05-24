@@ -1,6 +1,7 @@
 import { IUserRepository } from '../../../domain/repositories/IUserRepositiory';
 import { IRoleRepository } from '../../../domain/repositories/IRoleRepositiory';
 import { UserResponseDTO, PaginatedResponse } from '../../dtos/user/UserDTOs';
+import { ILike } from 'typeorm';
 
 interface GetUsersQuery {
   page?: number;
@@ -22,18 +23,29 @@ export class GetUsersUseCase {
     const limit = query.limit || 10;
     const skip = (page - 1) * limit;
 
-    // Build where conditions
-    const where: any = { is_delete: false };
+    let where: any = { is_delete: false };
     
-    if (query.searchColumn && query.searchTerm && this.validSearchColumns.includes(query.searchColumn)) {
-      where[query.searchColumn] = query.searchTerm;
+    // Handle search with specific column
+    if (query.searchColumn && query.searchTerm && query.searchTerm.trim() && this.validSearchColumns.includes(query.searchColumn)) {
+      // Use ILike for case-insensitive partial matching
+      where[query.searchColumn] = ILike(`%${query.searchTerm.trim()}%`);
+    } 
+    // Handle search across all columns when no specific column selected
+    else if (query.searchTerm && query.searchTerm.trim() && (!query.searchColumn || query.searchColumn === 'all')) {
+      where = [
+        { is_delete: false, name: ILike(`%${query.searchTerm.trim()}%`) },
+        { is_delete: false, user_name: ILike(`%${query.searchTerm.trim()}%`) },
+        { is_delete: false, email: ILike(`%${query.searchTerm.trim()}%`) },
+        { is_delete: false, contact_no: ILike(`%${query.searchTerm.trim()}%`) },
+      ];
     }
 
-    // Fetch users
+    // Fetch users with proper ordering
     const [users, total] = await this.userRepository.findAndCount({
       where,
       skip,
-      take: limit
+      take: limit,
+      order: { id: 'DESC' } as any
     });
 
     // Enrich with role names

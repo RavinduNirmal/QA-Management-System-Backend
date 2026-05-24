@@ -28,8 +28,13 @@ export class UpdateUserUseCase {
       throw new NotFound('User not found');
     }
 
-    // Prepare update data
+    // Prepare update data - map username to user_name if needed
     const updateData: Partial<any> = { ...dto };
+    
+    // Remove username from update data if it exists (it should be user_name)
+    if (updateData.username) {
+      delete updateData.username;
+    }
 
     // Hash password if provided
     if (dto.password && dto.password.trim()) {
