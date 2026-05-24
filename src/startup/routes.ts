@@ -5,7 +5,7 @@ import { IContainer } from './container';
 
 export async function createRoutes(container: IContainer): Promise<Router> {
   const router = express.Router();
-  const { userController, authController, roleController, auditController, permissionController } = container;
+  const { userController, authController, roleController, auditController, permissionController ,  projectController  } = container;
 
   // Global Middleware
   router.use(express.json());
@@ -34,6 +34,10 @@ export async function createRoutes(container: IContainer): Promise<Router> {
   // Permission Routes
   router.post('/api/v1/ecrTrans/createResource', (req, res) => permissionController.createResource(req, res));
   router.post('/api/v1/ecrTrans/createPermission', (req, res) => permissionController.createPermission(req, res));
+
+  // ============ Project Routes ============
+ router.post('/api/v1/ecrTrans/projects', (req, res) => projectController.createProject(req, res));
+ router.get('/api/v1/ecrTrans/projects', (req, res) => projectController.getProjects(req, res));
 
   return router;
 }

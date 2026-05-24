@@ -162,7 +162,8 @@ const requiredResources = [
   "User",  
   "Role", 
   "Audit",
-  "Report"
+  "Report",
+  "Project"
 ];
 
 const newResources = requiredResources
@@ -183,6 +184,7 @@ const defaultPermissions = [
   { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 2, role_id: 1 },
   { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 3, role_id: 1 },
   { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 4, role_id: 1 },  
+  { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 5, role_id: 1 },  
 ];
 
 for (const perm of defaultPermissions) {
