@@ -126,6 +126,23 @@ import { ProjectUserRepository } from "../infras/database/repositories/ProjectUs
 import { TestSuiteRepository } from "../infras/database/repositories/TestSuiteRepository";
 import { TestCaseRepository } from "../infras/database/repositories/TestCaseRepository";
 import { TestExecutionRepository } from "../infras/database/repositories/TestExecutionRepository";
+import { DefectRepository } from "../infras/database/repositories/DefectRepository";
+import { TestCycleRepository } from "../infras/database/repositories/TestCycleRepository";
+
+// Use Cases - Milestone and Test Cycle
+import { MilestoneRepository } from "../infras/database/repositories/MilestoneRepository";
+import { CreateMilestoneUseCase } from "../app/usecases/testCycle/CreateMilestoneUseCase";
+import { CreateTestCycleUseCase } from "../app/usecases/testCycle/CreateTestCycleUseCase";
+import { GetTestCyclesUseCase } from "../app/usecases/testCycle/GetTestCyclesUseCase";
+import { UpdateTestCycleUseCase } from "../app/usecases/testCycle/UpdateTestCycleUseCase";
+import { GetMilestonesUseCase } from "../app/usecases/testCycle/GetMilestonesUseCase";
+import { TestCycleController } from "../infras/http/controllers/TestCycleController";
+
+// Use Cases - Defect
+import { CreateDefectUseCase } from "../app/usecases/defect/CreateDefectUseCase";
+import { GetDefectsUseCase } from "../app/usecases/defect/GetDefectsUseCase";
+import { UpdateDefectUseCase } from "../app/usecases/defect/UpdateDefectUseCase";
+import { DefectController } from "../infras/http/controllers/DefectController";
 
 // Use Cases - Test Execution
 import { ExecuteTestCaseUseCase } from "../app/usecases/testExecution/ExecuteTestCaseUseCase";
@@ -192,6 +209,8 @@ export interface IContainer {
   testSuiteController: TestSuiteController;
   testCaseController: TestCaseController;
   testExecutionController: TestExecutionController;
+  defectController: DefectController;
+  testCycleController: TestCycleController;
 }
 
 export async function createContainer(): Promise<IContainer> {
@@ -213,6 +232,9 @@ export async function createContainer(): Promise<IContainer> {
   // Add after other repository initializations
 const testCaseRepository = new TestCaseRepository();
 const testExecutionRepository = new TestExecutionRepository();
+const defectRepository = new DefectRepository();
+const testCycleRepository = new TestCycleRepository();
+const milestoneRepository = new MilestoneRepository();
 
 
   // Initialize Gateways
@@ -279,20 +301,66 @@ const executeTestCaseUseCase = new ExecuteTestCaseUseCase(
   testExecutionRepository,
   testCaseRepository,
   testSuiteRepository,
+  testCycleRepository,
   projectRepository,
-  auditRepository
+  auditRepository,
 );
 const getExecutionStatsUseCase = new GetExecutionStatsUseCase(
   testExecutionRepository,
   projectRepository
 );
 const getExecutionsUseCase = new GetExecutionsUseCase(
-  testExecutionRepository,
+  testExecutionRepository,  // Argument 1
+  testCaseRepository,        // Argument 2
+  testSuiteRepository,       // Argument 3
+  testCycleRepository,       // Argument 4
+  projectRepository,         // Argument 5
+  userRepository             // Argument 6
+);
+
+const createDefectUseCase = new CreateDefectUseCase(
+  defectRepository,
+  projectRepository,
   testCaseRepository,
-  testSuiteRepository,
+  auditRepository
+);
+const getDefectsUseCase = new GetDefectsUseCase(
+  defectRepository,
   projectRepository,
   userRepository
 );
+const updateDefectUseCase = new UpdateDefectUseCase(
+  defectRepository,
+  projectRepository,
+  auditRepository
+);
+
+const createMilestoneUseCase = new CreateMilestoneUseCase(
+  milestoneRepository,
+  projectRepository,
+  auditRepository
+);
+const createTestCycleUseCase = new CreateTestCycleUseCase(
+  testCycleRepository,
+  milestoneRepository,
+  projectRepository,
+  auditRepository
+);
+const getTestCyclesUseCase = new GetTestCyclesUseCase(
+  testCycleRepository,
+  milestoneRepository,
+  projectRepository
+);
+const updateTestCycleUseCase = new UpdateTestCycleUseCase(
+  testCycleRepository,
+  auditRepository
+);
+const getMilestonesUseCase = new GetMilestonesUseCase(
+  milestoneRepository,
+  projectRepository
+);
+
+
 
 
   // Initialize Use Cases - User
@@ -357,6 +425,21 @@ const testExecutionController = new TestExecutionController(
   getExecutionsUseCase
 );
 
+const defectController = new DefectController(
+  createDefectUseCase,
+  getDefectsUseCase,
+  updateDefectUseCase
+);
+
+const testCycleController = new TestCycleController(
+  createMilestoneUseCase,
+  createTestCycleUseCase,
+  getTestCyclesUseCase,
+  updateTestCycleUseCase,
+  getMilestonesUseCase
+);
+
+
 
 
   return {
@@ -368,7 +451,9 @@ const testExecutionController = new TestExecutionController(
     projectController,  // Add this
     testSuiteController,  // Add this
     testCaseController,
-     testExecutionController
+     testExecutionController,
+      defectController,
+      testCycleController,
   };
 }
 

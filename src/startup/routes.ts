@@ -6,7 +6,7 @@ import { IContainer } from './container';
 export async function createRoutes(container: IContainer): Promise<Router> {
   const router = express.Router();
   const { userController, authController, roleController, auditController, permissionController ,  projectController, testSuiteController ,
-    testCaseController, testExecutionController } = container;
+    testCaseController, testExecutionController, testCycleController ,  defectController } = container;
 
   // Global Middleware
   router.use(express.json());
@@ -57,7 +57,22 @@ router.post('/api/v1/ecrTrans/test-executions', (req, res) => testExecutionContr
 router.get('/api/v1/ecrTrans/test-executions', (req, res) => testExecutionController.getExecutions(req, res));
 router.get('/api/v1/ecrTrans/test-executions/stats/:projectId', (req, res) => testExecutionController.getExecutionStats(req, res));
 
-  return router;
+// ============ Milestone & Test Cycle Routes ============
+router.post('/api/v1/ecrTrans/milestones', (req, res) => testCycleController.createMilestone(req, res));
+router.get('/api/v1/ecrTrans/milestones', (req, res) => testCycleController.getMilestones(req, res));
+router.post('/api/v1/ecrTrans/test-cycles', (req, res) => testCycleController.createTestCycle(req, res));
+router.get('/api/v1/ecrTrans/test-cycles', (req, res) => testCycleController.getTestCycles(req, res));
+router.put('/api/v1/ecrTrans/test-cycles/:id', (req, res) => testCycleController.updateTestCycle(req, res));
+router.get('/api/v1/ecrTrans/test-cycles/:id/summary', (req, res) => testCycleController.getTestCycleSummary(req, res));
+
+// ============ Defect Routes ============
+router.post('/api/v1/ecrTrans/defects', (req, res) => defectController.createDefect(req, res));
+router.get('/api/v1/ecrTrans/defects', (req, res) => defectController.getDefects(req, res));
+router.get('/api/v1/ecrTrans/defects/stats/:projectId', (req, res) => defectController.getDefectStats(req, res));
+router.put('/api/v1/ecrTrans/defects/:id', (req, res) => defectController.updateDefect(req, res));
+
+
+return router;
 }
 
 export default createRoutes;

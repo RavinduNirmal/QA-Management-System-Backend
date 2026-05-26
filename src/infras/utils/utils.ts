@@ -167,6 +167,9 @@ const requiredResources = [
   "TestSuite",
   "TestCase",
   "TestExecution",
+  "Defect",
+  "TestCycle",
+  "Milestone"  
 ];
 
 const newResources = requiredResources
@@ -191,6 +194,9 @@ const defaultPermissions = [
   { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 6, role_id: 1 },
   { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 7, role_id: 1 },
   { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 8, role_id: 1 },
+  { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 9, role_id: 1 },
+  { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 10, role_id: 1 },
+  { create_s: true, update_s: true, delete_s: true, view: true, resource_id: 11, role_id: 1 },
 ];
 
 for (const perm of defaultPermissions) {
